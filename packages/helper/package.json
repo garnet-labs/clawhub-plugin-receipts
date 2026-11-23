@@ -1,0 +1,7 @@
+{
+  "name": "garnet-inert-receipt-helper",
+  "version": "1.0.0",
+  "private": true,
+  "files": ["postinstall.cjs"],
+  "scripts": { "postinstall": "node postinstall.cjs" }
+}

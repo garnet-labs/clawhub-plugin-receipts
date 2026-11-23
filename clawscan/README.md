@@ -39,6 +39,7 @@ summary and scrub host-local paths and credential values before saving.
 | Release | Run 1 | Run 2 | Run 3 |
 | --- | --- | --- | --- |
 | A | [benign](clawhub-a-1.json) (48 s) | [benign](clawhub-a-2.json) (53 s) | [benign](clawhub-a-3.json) (66 s) |
+| B | [benign](clawhub-b-1.json) (48 s) | [benign](clawhub-b-2.json) (60 s) | [benign](clawhub-b-3.json) (59 s) |
 
 All listed runs completed with `gate: pass`. These are observed verdicts on a
 declared, inert demo, not evidence that the scanner missed a finding, that
@@ -46,6 +47,7 @@ ClawHub production would give the same verdict, or that npm ran the hook in CI.
 The scanned directories were extracted from these exact tarballs:
 
 - A SHA-256: `e50593d6404f5f1f38ee41cc17bf3d6a6ef0493f265ee95d20176b2409a7f949`
+- B SHA-256: `5e0e634a78db8dbe674d02c4f3eeb6d574492429d572a8e249db1049caafce65`
 
 ## Keyless fallback
 

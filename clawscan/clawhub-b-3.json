@@ -1,0 +1,281 @@
+{
+  "processCleanup": "unknown",
+  "status": "completed",
+  "complete": true,
+  "schemaVersion": "clawscan-run-v1",
+  "profile": "clawhub",
+  "configSource": "built-in",
+  "target": {
+    "kind": "plugin",
+    "input": "[REDACTED STAGE]/target",
+    "resolvedPath": "[REDACTED STAGE]/target",
+    "id": "receipt-fixture"
+  },
+  "startedAt": "2026-11-23T20:31:57.748170874Z",
+  "completedAt": "2026-11-23T20:32:56.758394603Z",
+  "sandbox": {
+    "mode": "docker",
+    "image": "ghcr.io/openclaw/clawscan-runtime@sha256:d494938b84a9f0da40504f611eec472d4637c755b5cef87b123daf8a2014545c",
+    "network": "on",
+    "env": [
+      "CODEX_API_KEY",
+      "DECISIONS_API_KEY",
+      "DECISIONS_BASE_URL",
+      "DECISIONS_MAX_INPUT_CHARS",
+      "DECISIONS_MODEL",
+      "DEFAULT_BASE_URL",
+      "DEFAULT_MODEL",
+      "LLM_API_KEY",
+      "OPENAI_API_KEY",
+      "OPENAI_BASE_URL",
+      "OVERVIEW_MODEL",
+      "REASONING_EFFORT",
+      "SKILLSPECTOR_MODEL",
+      "SKILLSPECTOR_PROVIDER",
+      "SKILLSPECTOR_REASONING_EFFORT"
+    ]
+  },
+  "scanners": {
+    "aig-mcp": {
+      "status": "completed",
+      "startedAt": "2026-11-23T20:31:57.748378636Z",
+      "completedAt": "2026-11-23T20:32:37.768899957Z",
+      "durationMs": 40020,
+      "command": [
+        "aig-mcp-scan",
+        "--repo",
+        "plugin",
+        "--language",
+        "en",
+        "-m",
+        "openai/gpt-6.1-sol",
+        "-u",
+        "https://ai-gateway.vercel.sh/v1",
+        "-p",
+        "This directory is an OpenClaw plugin, not a standalone MCP server. OpenClaw loads it in-process inside the agent gateway with the gateway's full permissions: filesystem, network, environment variables, stored credentials and conversation transcripts. Tools registered with api.registerTool are exposed to the model exactly like MCP tools (their names, descriptions and results reach the model). Hooks such as before_prompt_build can read and rewrite prompts and messages. registerHttpRoute exposes HTTP endpoints on the gateway. Audit it as an agent tool server running with those permissions. Prioritize malicious or deceptive behavior: credential or data exfiltration, tool poisoning or hidden instructions in tool descriptions or results, prompt injection, remote code download or execution, obfuscated payloads, persistence, backdoors or unauthenticated control endpoints, and behavior that is not declared in openclaw.plugin.json or package.json. Third-party dependencies (node_modules) were removed and are out of scope. The whole plugin artifact is in scope, not only its MCP-style tools: also audit embedded skills (SKILL.md files and the instructions, references and scripts they ship), hooks, tool and HTTP route handlers, install or lifecycle scripts, and compiled or bundled code such as dist/ and build/ output. Read the entry points named in package.json and openclaw.plugin.json even when they are compiled. No shell is available: use read_file, read_file_chunk (for any file longer than one read_file result) and search_files.",
+        "-o",
+        "aig-mcp-scan.sarif.json"
+      ],
+      "error": "",
+      "outputPath": "profiles/clawhub/target/aig-mcp.json",
+      "exitCode": 0,
+      "raw": {
+        "version": "2.1.0",
+        "$schema": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/schemas/sarif-schema-2.1.0.json",
+        "runs": [
+          {
+            "tool": {
+              "driver": {
+                "name": "aig-mcp-scan",
+                "version": "0.2.0",
+                "informationUri": "https://github.com/Tencent/AI-Infra-Guard",
+                "rules": [
+                  {
+                    "id": "MCP01",
+                    "name": "Token Mismanagement & Secret Exposure",
+                    "shortDescription": {
+                      "text": "Credential theft and secret leakage, e.g. hardcoded keys, env var leaks, mcp.json credential theft"
+                    }
+                  },
+                  {
+                    "id": "MCP02",
+                    "name": "Privilege Escalation via Scope Creep",
+                    "shortDescription": {
+                      "text": "Overly broad tool permissions granting agents unnecessary system control or data access"
+                    }
+                  },
+                  {
+                    "id": "MCP03",
+                    "name": "Tool Poisoning",
+                    "shortDescription": {
+                      "text": "Legitimate MCP tools tampered or injected with malicious logic, returning false/biased results to manipulate the model"
+                    }
+                  },
+                  {
+                    "id": "MCP04",
+                    "name": "Software Supply Chain Attacks",
+                    "shortDescription": {
+                      "text": "Dependency tampering, malicious third-party MCP servers, or backdoors in build scripts"
+                    }
+                  },
+                  {
+                    "id": "MCP05",
+                    "name": "Command Injection & Execution",
+                    "shortDescription": {
+                      "text": "Agent constructs and executes system commands, shell scripts, or API calls from untrusted input"
+                    }
+                  },
+                  {
+                    "id": "MCP06",
+                    "name": "Prompt Injection via Contextual Payloads",
+                    "shortDescription": {
+                      "text": "Malicious instructions injected via context (OCR, web content) to hijack model control flow"
+                    }
+                  },
+                  {
+                    "id": "MCP07",
+                    "name": "Insufficient Auth & Authz",
+                    "shortDescription": {
+                      "text": "MCP server or tools fail to validate identity, enabling cross-agent/cross-user unauthorized operations"
+                    }
+                  },
+                  {
+                    "id": "MCP08",
+                    "name": "Lack of Audit and Telemetry",
+                    "shortDescription": {
+                      "text": "No tamper-proof logging of tool calls and context changes, hindering security traceability"
+                    }
+                  },
+                  {
+                    "id": "MCP09",
+                    "name": "Shadow MCP Servers",
+                    "shortDescription": {
+                      "text": "Unauthorized MCP instances with default configurations or lacking security compliance"
+                    }
+                  },
+                  {
+                    "id": "MCP10",
+                    "name": "Context Injection & Over-Sharing",
+                    "shortDescription": {
+                      "text": "Sensitive context shared across sessions or agents, causing information leakage or logic interference"
+                    }
+                  },
+                  {
+                    "id": "Name Confusion",
+                    "name": "Name Confusion Attack",
+                    "shortDescription": {
+                      "text": "Malicious tool registered with a name similar to a common tool, tricking agents into wrong calls"
+                    }
+                  },
+                  {
+                    "id": "Rug Pull Attack",
+                    "name": "Rug Pull Attack",
+                    "shortDescription": {
+                      "text": "Malicious MCP service terminates or changes behavior after gaining trust, causing DoS or data loss"
+                    }
+                  },
+                  {
+                    "id": "Tool Shadowing Attack",
+                    "name": "Tool Shadowing Attack",
+                    "shortDescription": {
+                      "text": "Overriding legitimate tool behavior by redefining a same-named tool"
+                    }
+                  },
+                  {
+                    "id": "other",
+                    "name": "Other Risk",
+                    "shortDescription": {
+                      "text": "Security issues not covered by the MCP01-MCP10 classification"
+                    }
+                  }
+                ]
+              }
+            },
+            "results": [],
+            "properties": {
+              "securityScore": 100,
+              "primaryLanguage": "JavaScript",
+              "llm": "openai/gpt-6.1-sol",
+              "startTime": 1795465918.810562,
+              "endTime": 1795465957.5352547,
+              "scanNote": "complete"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "gate": "pass",
+  "gateRules": [],
+  "judge": {
+    "status": "completed",
+    "promptPath": "clawhub/evidence-judge.md",
+    "outputSchemaPath": "clawhub/evidence-judge.schema.json",
+    "outputPath": "/tmp/clawscan-judge-1990637040/judge-output.json",
+    "promptSha256": "c2cb481e6f6cdddb63e2eaf6a2d12e83f445fe578ea3775e4dacf9169c00f01c",
+    "outputSchemaSha256": "271f29522adbb2cc23d72f36f06c3d16bed3c999de2892067acd05bbb9a44fd2",
+    "error": "",
+    "result": {
+      "confidence": "medium",
+      "dimensions": {
+        "environment_proportionality": {
+          "confidence": 0.65,
+          "status": "note"
+        },
+        "install_mechanism": {
+          "confidence": 0.65,
+          "status": "note"
+        },
+        "instruction_scope": {
+          "confidence": 0.8,
+          "status": "ok"
+        },
+        "persistence_privilege": {
+          "confidence": 0.8,
+          "status": "ok"
+        },
+        "purpose_capability": {
+          "confidence": 0.65,
+          "status": "note"
+        }
+      },
+      "scan_findings_in_context": [],
+      "verdict": "benign"
+    },
+    "attempts": [
+      {
+        "status": "completed",
+        "error": "",
+        "result": {
+          "confidence": "medium",
+          "dimensions": {
+            "environment_proportionality": {
+              "confidence": 0.65,
+              "status": "note"
+            },
+            "install_mechanism": {
+              "confidence": 0.65,
+              "status": "note"
+            },
+            "instruction_scope": {
+              "confidence": 0.8,
+              "status": "ok"
+            },
+            "persistence_privilege": {
+              "confidence": 0.8,
+              "status": "ok"
+            },
+            "purpose_capability": {
+              "confidence": 0.65,
+              "status": "note"
+            }
+          },
+          "scan_findings_in_context": [],
+          "verdict": "benign"
+        },
+        "durationMs": 15485
+      }
+    ]
+  },
+  "overview": {
+    "status": "completed",
+    "promptPath": "clawhub/evidence-overview.md",
+    "outputSchemaPath": "clawhub/overview.schema.json",
+    "promptSha256": "401989d29007040a604cdd7212d81aa972d7b12c04b24801f1061aaf5fa9a8d0",
+    "outputSchemaSha256": "f0344d2cf09a8598f31d34804fdf9ae4821cd42a9c576a2f993fb441d819056d",
+    "error": "",
+    "result": {
+      "dimensions": {
+        "environment_proportionality": "Status: note. The results do not describe the plugin’s environment needs, so whether they are proportionate is unclear.",
+        "install_mechanism": "Status: note. The results provide no details about how the plugin is installed, so installation behavior cannot be assessed from this evidence.",
+        "instruction_scope": "Status: ok. The completed scan reported no findings related to instruction scope.",
+        "persistence_privilege": "Status: ok. The completed scan reported no findings related to persistence or privilege.",
+        "purpose_capability": "Status: note. The scanner reported no findings, but the results do not describe the plugin’s purpose or capabilities, so their fit cannot be assessed here."
+      },
+      "scan_findings_in_context": [],
+      "summary": "The completed scanner reported no findings, and the verdict is benign, with notes reflecting some uncertainty about purpose, environment fit, and installation details.",
+      "user_guidance": "The verdict is benign, but benign does not mean risk-free. The scan completed with no findings; the available results do not describe the plugin’s purpose, installation method, or environment needs, so review those details before installing."
+    },
+    "durationMs": 3502
+  }
+}

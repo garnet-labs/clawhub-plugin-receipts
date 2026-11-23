@@ -1,0 +1,47 @@
+name: Garnet plugin receipts
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: garnet-record-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  install:
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '24.22.3'
+
+      - uses: garnet-org/action@673a06d87748bec49e4d8df22d371b2a3420aba4 # v2.5.2
+
+      - name: Pack and install the plugin tarball
+        run: |
+          stage=$(bash scripts/pack.sh)
+          npm install --prefix "$stage/installed" --offline --ignore-scripts=false \
+            --foreground-scripts --no-audit --no-fund "$stage/release.tgz"
+          printf 'PLUGIN_INSTALL_ROOT=%s\n' "$stage/installed" >> "$GITHUB_ENV"
+
+      - name: Run the plugin smoke test
+        run: node scripts/smoke.mjs "$PLUGIN_INSTALL_ROOT"
+
+      - name: Let sensor settle
+        if: always()
+        run: sleep 30

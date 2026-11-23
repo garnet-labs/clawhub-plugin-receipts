@@ -1,0 +1,8 @@
+{
+  "id": "receipt-fixture",
+  "configSchema": {
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "garnet-clawhub-receipt-fixture",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "files": [
+    "index.js",
+    "openclaw.plugin.json",
+    "npm-shrinkwrap.json"
+  ],
+  "openclaw": {
+    "extensions": [
+      "./index.js"
+    ]
+  }
+}

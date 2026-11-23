@@ -1,0 +1,12 @@
+{
+  "name": "garnet-clawhub-receipt-fixture",
+  "version": "1.0.0",
+  "lockfileVersion": 3,
+  "requires": true,
+  "packages": {
+    "": {
+      "name": "garnet-clawhub-receipt-fixture",
+      "version": "1.0.0"
+    }
+  }
+}

@@ -1,6 +1,6 @@
 {
   "name": "garnet-clawhub-receipt-fixture",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "type": "module",
   "files": [
@@ -12,5 +12,11 @@
     "extensions": [
       "./index.js"
     ]
-  }
+  },
+  "dependencies": {
+    "garnet-inert-receipt-helper": "file:../../packages/helper"
+  },
+  "bundleDependencies": [
+    "garnet-inert-receipt-helper"
+  ]
 }

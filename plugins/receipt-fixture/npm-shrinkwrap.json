@@ -1,12 +1,24 @@
 {
   "name": "garnet-clawhub-receipt-fixture",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "lockfileVersion": 3,
   "requires": true,
   "packages": {
     "": {
       "name": "garnet-clawhub-receipt-fixture",
-      "version": "1.0.0"
+      "version": "1.0.1",
+      "bundleDependencies": [
+        "garnet-inert-receipt-helper"
+      ],
+      "dependencies": {
+        "garnet-inert-receipt-helper": "file:../../packages/helper"
+      }
+    },
+    "node_modules/garnet-inert-receipt-helper": {
+      "version": "1.0.0",
+      "resolved": "file:../../packages/helper",
+      "hasInstallScript": true,
+      "inBundle": true
     }
   }
 }

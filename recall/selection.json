@@ -1,7 +1,7 @@
 {
-  "mechanism": "control",
+  "mechanism": "child-process",
   "sha256": {
-    "discord": "7b59431a597ab19327952f823d2018f19f2b9001bbf5925d76ed9daefa9ad085",
-    "memory-lancedb": "35b03f263ec83a3118dc4aace4e8b90416fbf49f14404c4d31444731648b71bf"
+    "discord": "14d4db680c8b8c329689754a90e49b263ea0a5e63a539ebf94cf1d7bdfe8feea",
+    "memory-lancedb": "3889fa5d62869fe6002816a66fef9c96ba49799fe34e0bc370335c7aab2bb642"
   }
 }

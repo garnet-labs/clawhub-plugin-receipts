@@ -41,16 +41,17 @@ case "$1" in
     fi
     ;;
   install)
-    selector="clawhub:@openclaw/$plugin@2026.11.7"
+    install_args=("clawhub:@openclaw/$plugin@2026.11.7")
     if [[ "$mode" != control ]]; then
       selector="$home/release.tgz"
       printf '%s  %s\n' "$expected" "$selector" | within_workload sha256sum --check --strict
+      install_args=("$selector" --force)
     fi
     within_workload /bin/sh -eu -c '
       test "$(npm config get ignore-scripts)" = true
-      openclaw plugins install "$1"
+      openclaw plugins install "$@"
       openclaw plugins list
-    ' sh "$selector"
+    ' sh "${install_args[@]}"
     ;;
   first-load)
     within_workload /bin/sh -eu -c '

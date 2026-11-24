@@ -1,0 +1,7 @@
+{
+  "mechanism": "control",
+  "sha256": {
+    "discord": "7b59431a597ab19327952f823d2018f19f2b9001bbf5925d76ed9daefa9ad085",
+    "memory-lancedb": "35b03f263ec83a3118dc4aace4e8b90416fbf49f14404c4d31444731648b71bf"
+  }
+}

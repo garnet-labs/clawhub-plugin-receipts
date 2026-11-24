@@ -45,13 +45,18 @@ case "$1" in
     if [[ "$mode" != control ]]; then
       selector="$home/release.tgz"
       printf '%s  %s\n' "$expected" "$selector" | within_workload sha256sum --check --strict
-      install_args=("$selector" --force)
+      install_args=("$selector" --force --accept-capabilities)
     fi
     within_workload /bin/sh -eu -c '
       test "$(npm config get ignore-scripts)" = true
       openclaw plugins install "$@"
       openclaw plugins list
     ' sh "${install_args[@]}"
+    if [[ "$mode" != control ]]; then
+      accepted=$(within_workload openclaw plugins inspect "$plugin" --json |
+        jq -ec '.install.acceptedSurface | select(type == "object")')
+      printf 'Accepted plugin capabilities: %s\n' "$accepted"
+    fi
     ;;
   first-load)
     within_workload /bin/sh -eu -c '

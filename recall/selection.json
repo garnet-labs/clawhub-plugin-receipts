@@ -1,7 +1,7 @@
 {
-  "mechanism": "control",
+  "mechanism": "dependency",
   "sha256": {
-    "discord": "7b59431a597ab19327952f823d2018f19f2b9001bbf5925d76ed9daefa9ad085",
-    "memory-lancedb": "35b03f263ec83a3118dc4aace4e8b90416fbf49f14404c4d31444731648b71bf"
+    "discord": "bfa3913631d353c62d3be1f0cf1f1ebf91d4178033d47563352971f1c3f4d4a5",
+    "memory-lancedb": "105adedca3e35d8647d34290bbded9b239370650bbdc909c292ed9bf7f908b89"
   }
 }
